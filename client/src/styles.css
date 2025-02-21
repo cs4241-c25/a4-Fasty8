@@ -1,0 +1,45 @@
+@import "tailwindcss";
+body {
+    background-color: #0E2736;
+    text-align:  center;
+}
+h1 {
+    color: #FF9999;
+    text-align: center;
+}
+h2 {
+    color: #FFC5D3;
+}
+h3 {
+    color: #FFC5D3;
+}
+h4 {
+    color: #FFC5D3;
+}
+p, li, tr, th, td, label {
+    color: #C5C6C7;
+    font-family: 'Atma', cursive;
+}
+
+ul {
+list-style: none; 
+padding: 0;
+margin: 0;
+}
+
+table, th, td {
+    border: 1px solid #C5C6C7;
+    width: 100%;
+    color: #C5C6C7; 
+    font-family: 'Atma', cursive;
+}  
+
+#nameForm {
+    background-color: #1A3A4D;
+    padding: 15px;
+    border-radius: 10px;
+}
+.italics {
+    color: #D9BCA9;
+    font-style: italic;
+}

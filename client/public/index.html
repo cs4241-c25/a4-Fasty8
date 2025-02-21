@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>CS4241 Assignment </title>
+  <meta charset="utf-8">
+  <script defer src="js/main.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+<body class="bg-[#0E2736] text-center">
+  <form id="registerForm">
+      <input type="text" id="registerUsername" placeholder="Username" required>
+      <input type="password" id="registerPassword" placeholder="Password" required>
+      <button type="submit" class="border border-[#C5C6C7] p-2 mt-2 hover:bg-[#C5C6C7] hover:text-black">Register</button>
+  </form>
+  
+  <form id="loginForm">
+      <input type="text" id="loginUsername" placeholder="Username" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button type="submit" class="border border-[#C5C6C7] p-2 mt-2 hover:bg-[#C5C6C7] hover:text-black">Login</button>
+  </form>
+  
+  <button id="logoutBtn" button type="submit" class="border border-[#C5C6C7] p-2 mt-2 hover:bg-[#C5C6C7] hover:text-black">Logout</button>
+  
+  <h1 class="text-[#FF9999] text-center text-3xl font-bold mt-4">CarORama!</h1>
+  <h2 class="text-[#FFC5D3] text-xl mt-2">Tell us About Yourself</h2>
+  <h4 class="text-[#D9BCA9] italic mt-2">
+    Enter the following information and the computer will try to guess your favorite car
+  </h4>
+
+  <form id="nameForm" class="bg-[#1A3A4D] p-[15px] rounded-[10px] inline-block mt-4">
+    <div class="mb-2">
+      <label for="yourname" class="text-[#C5C6C7] font-[Atma]">Name?</label>
+      <input type="text" id="yourname" placeholder="your name here" class="border border-[#C5C6C7] ml-2 p-1">
+    </div>
+    <div class="mb-2">
+      <label for="color" class="text-[#C5C6C7] font-[Atma]">Favorite Color?</label>
+      <input type="text" id="color" placeholder="your favorite color here" class="border border-[#C5C6C7] ml-2 p-1">
+    </div>
+    <div class="mb-2">
+      <label for="number" class="text-[#C5C6C7] font-[Atma]">Favorite Number?</label>
+      <input type="number" id="number" placeholder="your favorite number here" class="border border-[#C5C6C7] ml-2 p-1">
+    </div>
+    <div class="mb-2">
+      <label for="foods" class="text-[#C5C6C7] font-[Atma]">What's your favorite food?</label>
+      <select name="foods" id="foods" class="border border-[#C5C6C7] ml-2 p-1">
+        <option value="pizza">Pizza</option>
+        <option value="lomein">Lo Mein</option>
+        <option value="steak">Steak</option>
+        <option value="sushi">Sushi</option>
+        <option value="tacos">Tacos</option>
+      </select>
+    </div>
+    <button type="submit" class="border border-[#C5C6C7] p-2 mt-2 hover:bg-[#C5C6C7] hover:text-black">
+      Submit
+    </button>
+  </form>
+
+  <h2 class="text-[#FFC5D3] text-xl mt-6">Results</h2>
+  <div class="mt-2">
+    <button id="deleteLastRow" class="border border-[#C5C6C7] p-2 mr-2 hover:bg-[#C5C6C7] hover:text-black">
+      Delete Last Row
+    </button>
+    <button id="clearTable" class="border border-[#C5C6C7] p-2 hover:bg-[#C5C6C7] hover:text-black">
+      Clear Table
+    </button>
+  </div>
+
+  <table class="border-collapse w-full mt-4">
+    <thead>
+      <tr>
+        <th class="border border-[#C5C6C7] text-[#C5C6C7] font-[Atma] p-2">Name</th>
+        <th class="border border-[#C5C6C7] text-[#C5C6C7] font-[Atma] p-2">Color</th>
+        <th class="border border-[#C5C6C7] text-[#C5C6C7] font-[Atma] p-2">Number</th>
+        <th class="border border-[#C5C6C7] text-[#C5C6C7] font-[Atma] p-2">Food</th>
+        <th class="border border-[#C5C6C7] text-[#C5C6C7] font-[Atma] p-2">Favorite Car</th>
+      </tr>
+    </thead>
+    <tbody id="nameTable">
+    </tbody>
+  </table>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const form = document.getElementById("nameForm");
+      form.addEventListener("submit", function(event) {
+        event.preventDefault(); 
+
+        const name = document.getElementById("yourname").value.trim();
+        const color = document.getElementById("color").value.trim();
+        const number = document.getElementById("number").value.trim();
+        const food = document.getElementById("foods").value.trim();
+
+        if (!name) {
+          alert("Please enter a name.");
+          return;
+        }
+        console.log("Submitting Data:", { name, color, number, food });
+
+      function calcFavCar(name, color, number, food) {
+        const carOptions = [
+          "Porsche 911 GT3", 
+          "Plymouth Prowler", 
+          "Bugatti Chiron", 
+          "McLaren P1", 
+          "1969 Dodge Charger R/T", 
+          "Chevrolet Chevelle SS 454", 
+          "Rolls-Royce Phantom", 
+          "Mercedes-Benz S-Class", 
+          "Lamborghini Urus", 
+          "Jeep Grand Cherokee Trackhawk"
+        ];
+        const foodVowels = (food.match(/[aeiou]/gi) || []).length;
+        const finalCalc = (name.length % color.length) + (number * foodVowels);
+        const lastDigit = parseInt(finalCalc.toString().slice(-1));
+        return carOptions[lastDigit];
+      }
+      const favCar = calcFavCar(name, color, number, food);
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `
+          <td style="color:#C5C6C7;">${name}</td>
+          <td style="color:#C5C6C7;">${color}</td>
+          <td style="color:#C5C6C7;">${number}</td>
+          <td style="color:#C5C6C7;">${food}</td>
+          <td style="color:#C5C6C7;">${favCar}</td>
+        `;
+        document.getElementById("nameTable").appendChild(newRow);
+        form.reset();
+      });
+    });
+  </script>
+</body>
+</html>
